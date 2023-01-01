@@ -34,23 +34,19 @@ body {
     margin-right: 10px;;
 }
 
-.tile {
+.tile.regular {
     border-right: 1px solid gray;
     border-bottom: 1px solid gray;
     box-sizing: border-box;
 }
 
-.tile-end {
+.tile.end {
     border-bottom: 1px solid gray;
     box-sizing: border-box;
 }
 
-.tile-bottom {
+.tile.bottom {
     border-right: 1px solid gray;
-    box-sizing: border-box;
-}
-
-.tile-bottom-end {
     box-sizing: border-box;
 }
 
