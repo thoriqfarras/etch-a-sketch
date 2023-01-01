@@ -1,6 +1,6 @@
 const grid = document.querySelector('#grid');
 
-let n = 5;
+let n = 32;
 let sq = n**2;
 let dimensionValue = `calc(500px / ${n})`;
 for (let i = 1; i <= sq; i++) {
@@ -26,3 +26,31 @@ for (let i = 1; i <= sq; i++) {
     grid.appendChild(tile);
 }
 
+const tiles = document.querySelectorAll('.tile');
+let mouseDown = false;
+
+tiles.forEach(tile => {
+
+    tile.addEventListener('mousemove', () => {
+        if (mouseDown) tile.style['background-color'] = 'black';
+    });
+    
+    tile.addEventListener('mousedown', () => {
+        mouseDown = true;
+        if (mouseDown) tile.style['background-color'] = 'black';
+        console.log('mouse is pressed');
+    });
+    
+    tile.addEventListener('mouseup', () => {
+        if (mouseDown) {
+            mouseDown = false;
+            console.log('mouse is up');
+        }        
+    });
+});
+
+const resetBtn = document.querySelector('#reset');
+
+resetBtn.addEventListener('click', ()=>{
+    tiles.forEach(tile => { tile.style['background-color'] = 'white'; });
+});
