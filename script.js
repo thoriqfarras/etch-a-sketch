@@ -37,15 +37,14 @@ tiles.forEach(tile => {
     
     tile.addEventListener('mousedown', () => {
         mouseDown = true;
-        if (mouseDown) tile.style['background-color'] = 'black';
-        console.log('mouse is pressed');
     });
     
-    tile.addEventListener('mouseup', () => {
-        if (mouseDown) {
-            mouseDown = false;
-            console.log('mouse is up');
-        }        
+    tile.addEventListener('dragstart', (e) => {
+        e.preventDefault();
+    });
+    
+    window.addEventListener('mouseup', () => {
+        if (mouseDown) mouseDown = false;     
     });
 });
 
