@@ -8,7 +8,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: beige;
+    background-color: #fffaed;
 }
 
 #main {
@@ -22,7 +22,7 @@ body {
     width: 500px;
     height: 500px;
     background-color: white;
-    border: 1px solid gray;
+    box-shadow: 5px 5px 5px gray;
     display: flex;
     flex-wrap: wrap;
 }
@@ -34,6 +34,8 @@ body {
     margin-right: 10px;;
 }
 
+/*
+***UNCOMMENT THESE TO ADD GRID TO CANVAS***
 .tile.regular {
     border-right: 1px solid gray;
     border-bottom: 1px solid gray;
@@ -48,5 +50,5 @@ body {
 .tile.bottom {
     border-right: 1px solid gray;
     box-sizing: border-box;
-}
+} */
 
