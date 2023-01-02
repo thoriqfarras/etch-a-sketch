@@ -69,7 +69,7 @@ function updateTile(tile) {
 
 function listenForTileUpdates() {
     let tiles = document.querySelectorAll('.tile');
-    let previousTile;
+    let previousTile; // I added this so that tile color doesn't change when cursor is moving in that same tile.
     resetBtn.addEventListener('click', () => { tiles.forEach(resetTile) });
     tiles.forEach(tile => {
         tile.addEventListener('mousedown', () => {
