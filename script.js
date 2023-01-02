@@ -108,7 +108,6 @@ console.log(canvasSizeText);
 
 let initialGridSize = document.querySelector('#canvas-resizer input').value;
 let currentGridSize = initialGridSize;
-let previousGridSize = 0;
 const grid = document.querySelector('#grid');
 createGrid(initialGridSize);
 
