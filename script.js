@@ -58,24 +58,31 @@ function getActiveBtn() {
 
 function updateTile(tile) {
     if (mouseDown) {
-        mode = getActiveBtn();
-        if (mode === 'color') draw(tile, selectedColor);
-        else if (mode === 'rainbow') {
+        gameMode = getActiveBtn();
+        if (gameMode === 'color') draw(tile, selectedColor);
+        else if (gameMode === 'rainbow') {
             selectedColor = `#${Math.floor(Math.random()*16777215).toString(16)}`;
             draw(tile, selectedColor);
-        } else if (mode === 'eraser') erase(tile);
+        } else if (gameMode === 'eraser') erase(tile);
     }
 }
 
 function listenForTileUpdates() {
     let tiles = document.querySelectorAll('.tile');
+    let previousTile;
     resetBtn.addEventListener('click', () => { tiles.forEach(resetTile) });
     tiles.forEach(tile => {
         tile.addEventListener('mousedown', () => {
             mouseDown = true; 
             updateTile(tile);
+            previousTile = tile;
         });
-        tile.addEventListener('mousemove', () => { updateTile(tile)} );
+        tile.addEventListener('mousemove', () => { 
+            if (previousTile !== tile) {
+                updateTile(tile);
+                previousTile = tile;
+            }
+        });
         tile.addEventListener('dragstart', (e) => { e.preventDefault(); });
         window.addEventListener('mouseup', () => { if (mouseDown) mouseDown = false; });
     });
@@ -84,7 +91,7 @@ function listenForTileUpdates() {
 // == BUTTONS ========================================================================================
 
 const buttons = document.querySelectorAll('button');
-let mode = 'color'; // color as default mode
+let gameMode = 'color'; // color as default gameMode
 buttons.forEach(button => {
     button.addEventListener('click', updateActiveBtn);
 });
