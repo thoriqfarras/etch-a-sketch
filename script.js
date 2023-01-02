@@ -1,10 +1,8 @@
 const grid = document.querySelector('#grid');
 
-let n = 32;
-let sq = n**2;
-let dimensionValue = `calc(500px / ${n})`;
-
-function createGrid() {
+function createGrid(n) {
+    let sq = n**2;
+    let dimensionValue = `calc(500px / ${n})`;
     for (let i = 1; i <= sq; i++) {
         const tile = document.createElement('div');
         tile.classList.add('tile');
@@ -74,7 +72,7 @@ buttons.forEach(button => {
 const resetBtn = document.querySelector('#reset');
 resetBtn.addEventListener('click', () => {tiles.forEach(resetTile)});
 
-createGrid();
+createGrid(64);
 
 const tiles = document.querySelectorAll('.tile');
 const colorPicker = document.querySelector('#color-picker');
