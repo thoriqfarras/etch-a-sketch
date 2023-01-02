@@ -9,14 +9,19 @@
     <body>
         <div id="main">
             <div id="controls">
-                <div>
-                    <input type="color" value="black" id="color-picker">
+                <div id="color-picker">
+                    <input type="color" value="black" name="color-picker">
                     <label for="color-picker"></label>
                 </div>
                 <button id="color" class="activated">Color mode</button>
                 <button id="rainbow">Rainbow mode</button>
                 <button id="eraser">Eraser</button>
                 <button id="reset">Clear canvas</button>
+                <div id="canvas-resizer">
+                    <p>16 x 16</p>
+                    <input type="range" name="canvas-resizer" value="16" min="1" max="64" step="1">
+                    <label for="canvas-resizer"></label>
+                </div>
             </div>
             <div id="grid"></div>
         </div>
