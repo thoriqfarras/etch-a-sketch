@@ -55,6 +55,11 @@ button {
     background-color: transparent;
 }
 
+.activated {
+    background-color: rgb(43, 43, 43);
+    color: #fffaed;
+}
+
 /*
 ***UNCOMMENT THESE TO ADD GRID TO CANVAS***
 .tile.regular {
