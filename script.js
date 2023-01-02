@@ -33,17 +33,6 @@ function resetTile(tile) {
     tile.style['background-color'] = 'white';
 }
 
-const buttons = document.querySelectorAll('button');
-let activeBtn = document.querySelector('.activated');
-buttons.forEach(button => {
-    button.addEventListener('click', () => {
-        if (button.id === 'reset') return;
-        if (activeBtn) activeBtn.classList.toggle('activated');
-        button.classList.toggle('activated');
-        activeBtn = button;
-    });
-});
-
 function draw(tile, color) {
     tile.style['background-color'] = color;
 }
@@ -52,18 +41,44 @@ function erase(tile) {
     tile.style['background-color'] = 'white';
 }
 
+function updateActiveBtn(event) {
+    let activeBtn = document.querySelector('.activated');
+    if (this.id === 'reset') return;
+    if (activeBtn) activeBtn.classList.toggle('activated');
+    this.classList.toggle('activated');
+    activeBtn = this;
+}
+
+function getActiveBtn() {
+    return document.querySelector('.activated').id;
+}
+
+let mode = 'color';
+const buttons = document.querySelectorAll('button');
+buttons.forEach(button => {
+    button.addEventListener('click', updateActiveBtn);
+});
+
 const resetBtn = document.querySelector('#reset');
 resetBtn.addEventListener('click', () => {tiles.forEach(resetTile)});
 
 createGrid();
+
 const tiles = document.querySelectorAll('.tile');
+const colorPicker = document.querySelector('#color-picker');
 let mouseDown = false;
-let selectedColor = 'black';
+let selectedColor = 'black'; // black as default value.
+
+colorPicker.addEventListener('input', (event) => {
+    selectedColor = event.target.value;
+});
+
 tiles.forEach(tile => {
     tile.addEventListener('mousemove', () => {
         if (mouseDown) {
-            if (activeBtn.id === 'color') draw(tile, selectedColor);
-            else if (activeBtn.id === 'eraser') erase(tile);
+            mode = getActiveBtn();
+            if (mode === 'color') draw(tile, selectedColor);
+            else if (mode === 'eraser') erase(tile);
         }
     });
     
