@@ -54,6 +54,17 @@ function getActiveBtn() {
     return document.querySelector('.activated').id;
 }
 
+function updateTile(tile) {
+    if (mouseDown) {
+        mode = getActiveBtn();
+        if (mode === 'color') draw(tile, selectedColor);
+        else if (mode === 'rainbow') {
+            selectedColor = `#${Math.floor(Math.random()*16777215).toString(16)}`;
+            draw(tile, selectedColor);
+        } else if (mode === 'eraser') erase(tile);
+    }
+}
+
 let mode = 'color';
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => {
@@ -75,18 +86,11 @@ colorPicker.addEventListener('input', (event) => {
 });
 
 tiles.forEach(tile => {
-    tile.addEventListener('mousemove', () => {
-        if (mouseDown) {
-            mode = getActiveBtn();
-            if (mode === 'color') draw(tile, selectedColor);
-            else if (mode === 'rainbow') {
-                selectedColor = `#${Math.floor(Math.random()*16777215).toString(16)}`;
-                draw(tile, selectedColor);
-            } else if (mode === 'eraser') erase(tile);
-        }
+    tile.addEventListener('mousedown', () => {
+         mouseDown = true; 
+         updateTile(tile);
     });
-
-    tile.addEventListener('mousedown', () => { mouseDown = true; });
+    tile.addEventListener('mousemove', () => { updateTile(tile)} );
     tile.addEventListener('dragstart', (e) => { e.preventDefault(); });
     window.addEventListener('mouseup', () => { if (mouseDown) mouseDown = false; });
 });
