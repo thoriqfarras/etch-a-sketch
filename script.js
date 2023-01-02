@@ -47,6 +47,7 @@ function updateActiveBtn(event) {
     if (activeBtn) activeBtn.classList.toggle('activated');
     this.classList.toggle('activated');
     activeBtn = this;
+    console.log(activeBtn.id);
 }
 
 function getActiveBtn() {
@@ -78,21 +79,16 @@ tiles.forEach(tile => {
         if (mouseDown) {
             mode = getActiveBtn();
             if (mode === 'color') draw(tile, selectedColor);
-            else if (mode === 'eraser') erase(tile);
+            else if (mode === 'rainbow') {
+                selectedColor = `#${Math.floor(Math.random()*16777215).toString(16)}`;
+                draw(tile, selectedColor);
+            } else if (mode === 'eraser') erase(tile);
         }
     });
-    
-    tile.addEventListener('mousedown', () => {
-        mouseDown = true;
-    });
-    
-    tile.addEventListener('dragstart', (e) => {
-        e.preventDefault();
-    });
-    
-    window.addEventListener('mouseup', () => {
-        if (mouseDown) mouseDown = false;     
-    });
+
+    tile.addEventListener('mousedown', () => { mouseDown = true; });
+    tile.addEventListener('dragstart', (e) => { e.preventDefault(); });
+    window.addEventListener('mouseup', () => { if (mouseDown) mouseDown = false; });
 });
 
 
