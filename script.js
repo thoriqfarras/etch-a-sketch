@@ -45,7 +45,7 @@ function erase(tile) {
 
 function updateActiveBtn(event) {
     let activeBtn = document.querySelector('.activated');
-    if (this.id === 'reset') return;
+    if (this.id === 'reset' || this.id === 'apply') return;
     if (activeBtn) activeBtn.classList.toggle('activated');
     this.classList.toggle('activated');
     activeBtn = this;
@@ -98,10 +98,25 @@ colorPicker.addEventListener('input', (event) => {
 });
 
 const resetBtn = document.querySelector('#reset');
+resetBtn.addEventListener('mousedown', () => {
+    resetBtn.classList.add('activated');
+});
+resetBtn.addEventListener('mouseup', () => {
+    resetBtn.classList.remove('activated');
+});
+
 
 const canvasResizer = document.querySelector('#canvas-resizer');
 let canvasSizeText = document.querySelector('#canvas-resizer p');
-console.log(canvasSizeText);
+
+const applyBtn = document.querySelector('#apply');
+let applyBtnActive = false;
+applyBtn.addEventListener('mousedown', () => {
+    applyBtn.classList.add('activated');
+});
+applyBtn.addEventListener('mouseup', () => {
+    applyBtn.classList.remove('activated');
+});
 
 // == GRID ========================================================================================
 
@@ -113,9 +128,20 @@ createGrid(initialGridSize);
 
 canvasResizer.addEventListener('input', (e) => {
     canvasSizeText.textContent = `${e.target.value} x ${e.target.value}`;
-    removeGrid();
-    createGrid(e.target.value);
-    listenForTileUpdates();
+});
+
+canvasResizer.addEventListener('change', (e) => {
+    currentGridSize = e.target.value;
+    applyBtnActive = true;
+});
+
+applyBtn.addEventListener('click', () => {
+    if (applyBtnActive) {
+        applyBtnActive = false;
+        removeGrid();
+        createGrid(currentGridSize);
+        listenForTileUpdates();
+    }
 });
 
 listenForTileUpdates();
