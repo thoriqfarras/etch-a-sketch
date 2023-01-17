@@ -49,7 +49,6 @@ function updateActiveBtn(event) {
     if (activeBtn) activeBtn.classList.toggle('activated');
     this.classList.toggle('activated');
     activeBtn = this;
-    console.log(activeBtn.id);
 }
 
 function getActiveBtn() {
@@ -59,8 +58,18 @@ function getActiveBtn() {
 function updateTile(tile) {
     if (mouseDown) {
         gameMode = getActiveBtn();
-        if (gameMode === 'color') draw(tile, selectedColor);
+        if (gameMode === 'color') {
+            if (fromRainbowMode) {
+                selectedColor = previousColor;
+                fromRainbowMode = false;
+            }
+            draw(tile, selectedColor);
+        }
         else if (gameMode === 'rainbow') {
+            if (!fromRainbowMode) {
+                previousColor = selectedColor;
+                fromRainbowMode = true;
+            }
             selectedColor = `#${Math.floor(Math.random()*16777215).toString(16)}`;
             draw(tile, selectedColor);
         } else if (gameMode === 'eraser') erase(tile);
@@ -88,17 +97,22 @@ function listenForTileUpdates() {
     });
 }
 
+let fromRainbowMode = false;
+
 // == BUTTONS ========================================================================================
 
 const buttons = document.querySelectorAll('button');
 let gameMode = 'color'; // color as default gameMode
 buttons.forEach(button => {
     button.addEventListener('click', updateActiveBtn);
+    button.addEventListener('click', () => {
+    });
 });
 
 const colorPicker = document.querySelector('#color-picker');
 let mouseDown = false;
 let selectedColor = 'black'; // black as default value.
+let previousColor = selectedColor;
 
 colorPicker.addEventListener('input', (event) => {
     selectedColor = event.target.value;
